@@ -1,8 +1,11 @@
 project(command)
 
-set(HEADERS header/Command.h header/JumpCommand.h)
-set(SOURCES src/JumpCommand.cpp)
-set(TESTS tests/JumpCommandTest.cpp)
+set(HEADERS header/Command.h header/JumpCommand.h header/InputHandler.h
+        header/VoidCommand.h)
+set(SOURCES src/JumpCommand.cpp
+        src/InputHandler.cpp)
+set(TESTS tests/JumpCommandTest.cpp
+        tests/InputHandlerTest.cpp)
 
 include(GoogleTest)
 enable_testing()
