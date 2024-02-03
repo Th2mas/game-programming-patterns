@@ -18,6 +18,14 @@ auto InputHandler::handleInput() -> void {
     }
 }
 
+auto InputHandler::handleInput(GameActor& actor) -> void {
+    for (auto button : allButtons) {
+        if (isPressed(button)) {
+            buttons[button]->execute(actor);
+        }
+    }
+}
+
 auto InputHandler::isPressed(Button button) -> bool {
     return buttonStates[button];
 }

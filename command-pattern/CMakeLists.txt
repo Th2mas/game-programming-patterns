@@ -1,9 +1,12 @@
 project(command)
 
 set(HEADERS header/Command.h header/JumpCommand.h header/InputHandler.h
-        header/VoidCommand.h)
+        header/VoidCommand.h
+        header/GameActor.h
+        header/JumpingGameActor.h)
 set(SOURCES src/JumpCommand.cpp
-        src/InputHandler.cpp)
+        src/InputHandler.cpp
+        src/JumpingGameActor.cpp)
 set(TESTS tests/JumpCommandTest.cpp
         tests/InputHandlerTest.cpp)
 

@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../header/InputHandler.h"
+#include "../header/JumpingGameActor.h"
 
 class InputHandlerTest : public ::testing::Test {
 protected:
@@ -7,9 +8,15 @@ protected:
 
     class MockCommand : public Command {
     public:
-        bool isExecuted = false;
+        bool isPlainExecuteExecuted = false;
+        bool isExecuteWithGameActorExecuted = false;
+
         void execute() override {
-            isExecuted = true;
+            isPlainExecuteExecuted = true;
+        }
+
+        void execute(GameActor& actor) override {
+            isExecuteWithGameActorExecuted = true;
         }
     };
 
@@ -32,7 +39,7 @@ TEST_F(InputHandlerTest, ExecutesButtonXCommandOnButtonXPressed) {
     inputHandler.handleInput();
 
     // Expect
-    EXPECT_TRUE(rawPointer->isExecuted);
+    EXPECT_TRUE(rawPointer->isPlainExecuteExecuted);
 }
 
 TEST_F(InputHandlerTest, DoesNotExecuteButtonXCommandOnButtonYPressed) {
@@ -47,5 +54,22 @@ TEST_F(InputHandlerTest, DoesNotExecuteButtonXCommandOnButtonYPressed) {
     inputHandler.handleInput();
 
     // Expect
-    EXPECT_FALSE(rawPointer->isExecuted);
+    EXPECT_FALSE(rawPointer->isPlainExecuteExecuted);
+}
+
+TEST_F(InputHandlerTest, ExecutesCommandOnGameActor) {
+    // Arrange
+    auto mockCommand = std::make_unique<MockCommand>();
+    auto rawPointer = mockCommand.get();
+    JumpingGameActor actor{};
+
+    inputHandler.bindToButton(BUTTON_B, std::move(mockCommand));
+
+    // Act
+    inputHandler.toggleButton(BUTTON_B);
+    inputHandler.handleInput(actor);
+
+    // Expect
+    EXPECT_FALSE(rawPointer->isPlainExecuteExecuted);
+    EXPECT_TRUE(rawPointer->isExecuteWithGameActorExecuted);
 }

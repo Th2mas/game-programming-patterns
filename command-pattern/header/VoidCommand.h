@@ -6,6 +6,7 @@
 class VoidCommand : public Command {
 public:
     void execute() override {}
+    void execute(GameActor& actor) override {}
 };
 
 #endif //VOIDCOMMAND_H

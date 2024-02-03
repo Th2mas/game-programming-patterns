@@ -20,6 +20,7 @@ public:
     InputHandler();
 
     void handleInput();
+    void handleInput(GameActor& actor);
     bool isPressed(Button button);
 
     void bindToButton(Button button, std::unique_ptr<Command> cmd);
