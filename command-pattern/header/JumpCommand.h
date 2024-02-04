@@ -15,6 +15,8 @@ public:
     void execute(GameActor& actor) override {
         actor.jump();
     }
+    void undo() override {
+    }
 };
 
 #endif //JUMPCOMMAND_H

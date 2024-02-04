@@ -18,6 +18,11 @@ protected:
         void execute(GameActor& actor) override {
             isExecuteWithGameActorExecuted = true;
         }
+
+        void undo() override {
+            isPlainExecuteExecuted = false;
+            isExecuteWithGameActorExecuted = false;
+        }
     };
 
     void TearDown() override {
