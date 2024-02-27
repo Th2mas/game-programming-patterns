@@ -6,6 +6,8 @@
 /**
  * An interface, that only has a single method, is most likely used in the command pattern
  * (similarly to @FuntionalInterface in Java)
+ *
+ * In this case, we have several methods
  */
 class Command {
 public:

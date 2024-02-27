@@ -16,34 +16,19 @@ private:
 
 public:
     MoveUnitCommand(GameUnit& unit, int x, int y): unit_(unit), x_(x), y_(y), xBefore_(0), yBefore_(0) {}
+    MoveUnitCommand(GameUnit& unit, std::pair<int, int> position): MoveUnitCommand(unit, position.first, position.second) {}
 
-    void execute() override {
-        xBefore_ = unit_.x();
-        yBefore_ = unit_.y();
-        unit_.moveTo(x_, y_);
-    }
+    void execute() override;
+    void execute(GameActor& actor) override;
+    void undo() override;
 
-    void execute(GameActor& actor) {}
+    int x() const;
 
-    void undo() override {
-        unit_.moveTo(xBefore_, yBefore_);
-    }
+    int y() const;
 
-    int x() const {
-        return x_;
-    }
+    int xBefore() const;
 
-    int y() const {
-        return y_;
-    }
-
-    int xBefore() const {
-        return xBefore_;
-    }
-
-    int yBefore() const {
-        return yBefore_;
-    }
+    int yBefore() const;
 };
 
 
