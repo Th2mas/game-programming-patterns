@@ -21,6 +21,7 @@ private:
     std::shared_ptr<Terrain> hillPtr{ std::make_shared<Terrain>(hillTerrain) };
     std::shared_ptr<Terrain> riverPtr{ std::make_shared<Terrain>(riverTerrain) };
 
+    // Although we are using now more safe containers, our code got >10x slower. One would have to check what is more important
     std::array<std::array<std::shared_ptr<Terrain>, WIDTH>, HEIGHT> tiles;
 public:
     World() :
