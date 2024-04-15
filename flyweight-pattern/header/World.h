@@ -5,6 +5,7 @@
 #ifndef GAME_PROGRAMMING_PATTERNS_WORLD_H
 #define GAME_PROGRAMMING_PATTERNS_WORLD_H
 
+#include <array>
 #include "Terrain.h"
 
 constexpr int WIDTH = 1024;
@@ -16,29 +17,38 @@ private:
     Terrain hillTerrain;
     Terrain riverTerrain;
 
-    // Although not the safest way, it is still the fastest
-    Terrain* tiles[HEIGHT][WIDTH];
+    std::shared_ptr<Terrain> grassPtr{ std::make_shared<Terrain>(grassTerrain) };
+    std::shared_ptr<Terrain> hillPtr{ std::make_shared<Terrain>(hillTerrain) };
+    std::shared_ptr<Terrain> riverPtr{ std::make_shared<Terrain>(riverTerrain) };
+
+    std::array<std::array<std::shared_ptr<Terrain>, WIDTH>, HEIGHT> tiles;
 public:
-    World():
-        grassTerrain(1, false, GRASS),
-        hillTerrain(3, false, HILL),
-        riverTerrain(2, true, RIVER)
-        {}
+    World() :
+            grassTerrain(1, false, GRASS),
+            hillTerrain(3, false, HILL),
+            riverTerrain(2, true, RIVER) {
+
+        for (auto &row: tiles) {
+            for (auto &tile: row) {
+                tile = grassPtr;
+            }
+        }
+    }
 
     void setTile(int x, int y, Texture texture) {
         switch (texture) {
             case GRASS:
-                tiles[y][x] = &grassTerrain;
+                tiles[y][x] = grassPtr;
                 break;
             case HILL:
-                tiles[y][x] = &hillTerrain;
+                tiles[y][x] = hillPtr;
                 break;
             case RIVER:
-                tiles[y][x] = &riverTerrain;
+                tiles[y][x] = riverPtr;
         }
     }
 
-    const Terrain& getTile(int x, int y) const {
+    const Terrain &getTile(int x, int y) const {
         return *tiles[y][x];
     }
 };
