@@ -1,8 +1,13 @@
 project(flyweight)
 
-set(HEADERS )
+set(HEADERS
+        header/Terrain.h
+        header/World.h
+)
 set(SOURCES )
-set(TESTS )
+set(TESTS
+        tests/WorldTest.cpp
+        tests/TerrainTest.cpp)
 
 include(GoogleTest)
 enable_testing()
