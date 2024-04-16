@@ -18,3 +18,4 @@ FetchContent_MakeAvailable(googletest)
 
 add_subdirectory(command-pattern)
 add_subdirectory(flyweight-pattern)
+add_subdirectory(observer-pattern)
