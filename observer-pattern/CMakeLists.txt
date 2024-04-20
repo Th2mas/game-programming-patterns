@@ -1,11 +1,14 @@
 project(observer)
 
 set(HEADERS header/Observer.h header/Entity.h header/Event.h
-        header/Achievements.h)
+        header/Achievements.h
+        header/Subject.h)
 set(SOURCES
-        src/Achievements.cpp)
+        src/Achievements.cpp
+        src/Subject.cpp)
 set(TESTS
-        tests/AchievementsTest.cpp)
+        tests/AchievementsTest.cpp
+        tests/SubjectTest.cpp)
 
 include(GoogleTest)
 enable_testing()

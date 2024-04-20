@@ -8,11 +8,6 @@
 class AchievementsMock : public Achievements {
 public:
     MOCK_METHOD(void, unlock, (Achievement), (override));
-
-    // Call the actual implementation
-    void onNotify(const Entity &entity, Event event) override {
-        Achievements::onNotify(entity, event);
-    }
 };
 
 class AchievementsTest : public ::testing::Test {
@@ -41,6 +36,7 @@ TEST_F(AchievementsTest, OnNotifyWithNonHeroAndFellOffBridgeEventDoesNotTriggerF
 }
 
 TEST_F(AchievementsTest, OnNotifyWithHeroAndNonFellOffBridgeEventDoesNotTriggerFellOffUnlock) {
+    // Arrange and assert
     EXPECT_CALL(achievements, unlock(Achievement::FELL_OFF_BRIDGE))
             .Times(0);
 

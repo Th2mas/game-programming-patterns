@@ -19,6 +19,10 @@ public:
     bool isOnBridge() const {
         return isOnBridge_;
     }
+
+    bool operator==(const Entity& other) const {
+        return isHero_ == other.isHero_ && isOnBridge_ == other.isOnBridge_;
+    }
 };
 
 #endif //GAME_PROGRAMMING_PATTERNS_ENTITY_H
