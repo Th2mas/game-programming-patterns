@@ -4,19 +4,37 @@
 #include "../header/Subject.h"
 
 auto Subject::addObserver(const std::shared_ptr<Observer>& observer) -> void {
-    observers.push_back(observer);
+    observer->next_ = head_;
+    head_ = observer;
 }
 
 auto Subject::removeObserver(const std::shared_ptr<Observer>& observer) -> void {
-    observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
+    if (head_ == observer) {
+        head_ = observer->next_;
+        observer->next_ = nullptr;
+        return;
+    }
+
+    auto current = head_;
+    while (current != nullptr) {
+        if (current->next_ == observer) {
+            current->next_ = observer->next_;
+            observer->next_ = nullptr;
+            return;
+        }
+
+        current = current->next_;
+    }
 }
 
 auto Subject::clear() -> void {
-    observers.clear();
+    head_ = nullptr;
 }
 
 auto Subject::notify(const Entity &entity, Event event) -> void {
-    for (auto& observer : observers) {
+    auto observer = head_;
+    while (observer != nullptr) {
         observer->onNotify(entity, event);
+        observer = observer->next_;
     }
 }

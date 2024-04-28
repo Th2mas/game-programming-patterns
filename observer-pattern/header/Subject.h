@@ -12,8 +12,10 @@
 // Also called the "Observable"
 class Subject {
 private:
-    std::vector<std::shared_ptr<Observer>> observers;
+    std::shared_ptr<Observer> head_;
 public:
+    Subject(): head_(nullptr) {}
+
     void addObserver(const std::shared_ptr<Observer>& observer);
     void removeObserver(const std::shared_ptr<Observer>& observer);
     void clear();
